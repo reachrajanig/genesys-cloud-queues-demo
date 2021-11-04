@@ -5,7 +5,7 @@ For this module we are creating a custom data integration and data action that w
 
 ```hcl
 module "classifier_data_actions" {
-   source             = "git::https://github.com/GenesysCloudDevOps/email-classifier-endpoint-demo.git?ref=v0.0.2"
+   source             = "git::https://github.com/GenesysCloudDevOps/email-classifier-endpoint-demo.git?ref=v0.0.5"
    integration_name   = "ComprehendDataActionV2"
    data_action_name   = "LookupQueueNameV2"
    classifier_url     = "https://localhost/abc"
@@ -33,5 +33,5 @@ module "classifier_data_actions" {
 |------|-------------|------|:--------:|
 | <a name="integration_name"></a> [integration_name](#integration\_name)  |  Name of the Genesys Cloud Integration to be created| `string` | yes |
 | <a name="data_action_name"></a> [data_action_name](#data\_action\_name) |  Name of the Genesys Cloud Data Action to be created | `string` | yes |
-| <a name="classifier_url"></a>   [context](#classifier\_url) | REST API endpoint | `string` | yes |
-| <a name="classifier_api_key"></a>   [context](#classifier\_api\_key) | API Key that will be passed to the endpoint for authentication | `string` | yes |
+| <a name="classifier_url"></a>   [classifier_url](#classifier\_url) | REST API endpoint | `string` | yes |
+| <a name="classifier_api_key"></a>   [classifier_api_key](#classifier\_api\_key) | API Key that will be passed to the endpoint for authentication | `string` | yes |
