@@ -1,15 +1,13 @@
 This module is meant to be used purely for demonstration purposes. It should be considered an example of how to layout a simple Genesys Cloud Terraform module.
-For this module we are creating a custom data integration and data action that will invoke an REST endpoint exposed through AWS's API gateway.  
+For this module we are creating a module that will let you create a number of queues based on a list of queues passed in and a list of member ids to be passed.
 
 ## Usage
 
 ```hcl
-module "classifier_data_actions" {
-   source             = "git::https://github.com/GenesysCloudDevOps/email-classifier-endpoint-demo.git?ref=v0.0.5"
-   integration_name   = "ComprehendDataActionV2"
-   data_action_name   = "LookupQueueNameV2"
-   classifier_url     = "https://localhost/abc"
-   classifier_api_key = "abc1234"
+module "classifier_queues" {
+  source                   = "git::https://github.com/GenesysCloudDevOps/genesys-cloud-queues-demo.git?ref=main"
+  classifier_queue_names   = ["401K", "IRA", "529", "GeneralSupport", "Banking"]
+  classifier_queue_members = ["member id #1 (guid)", "member id #2 (guid)" ]    
 }
 ```
 
@@ -31,7 +29,5 @@ module "classifier_data_actions" {
 
 | Name | Description | Type | Required |
 |------|-------------|------|:--------:|
-| <a name="integration_name"></a> [integration_name](#integration\_name)  |  Name of the Genesys Cloud Integration to be created| `string` | yes |
-| <a name="data_action_name"></a> [data_action_name](#data\_action\_name) |  Name of the Genesys Cloud Data Action to be created | `string` | yes |
-| <a name="classifier_url"></a>   [classifier_url](#classifier\_url) | REST API endpoint | `string` | yes |
-| <a name="classifier_api_key"></a>   [classifier_api_key](#classifier\_api\_key) | API Key that will be passed to the endpoint for authentication | `string` | yes |
+| <a name="classifier_queue_names"></a> [classifier_queue_names](#classifier\_queue\_names)  |  List of queue names to create| `list(string)` | yes |
+| <a name="classifier_queue_members"></a> [classifier_queue_members](#classifier\_queue\_members) |  List of member ids to assign to the queue | `list(string)` | yes |

@@ -1,54 +1,21 @@
-resource "genesyscloud_integration" "ComprehendDataAction" {
-  intended_state   = "ENABLED"
-  integration_type = "custom-rest-actions"
-  config {
-    name       = var.integration_name
-    properties = jsonencode({})
-    advanced   = jsonencode({})
-    notes      = "Used to invoke an AWS Comprehend job"
-  }
-}
+resource "genesyscloud_routing_queue" "Queues" {
+  for_each                 = toset(var.classifier_queue_names)
+  name                     = each.value
+  description              = "${each.value} questions and answers"
+  acw_wrapup_prompt        = "MANDATORY_TIMEOUT"
+  acw_timeout_ms           = 300000
+  skill_evaluation_method  = "BEST"
+  auto_answer_only         = true
+  enable_transcription     = true
+  enable_manual_assignment = true
 
-resource "genesyscloud_integration_action" "LookupQueueName" {
-  name           = var.data_action_name
-  category       = var.integration_name
-  integration_id = genesyscloud_integration.ComprehendDataAction.id
-  secure         = false
-  contract_input = jsonencode({
-    "type"     = "object",
-    "required" = ["EmailSubject", "EmailBody"],
-    "properties" = {
-      "EmailSubject" = {
-        "type" = "string"
-      },
-      "EmailBody" = {
-        "type" = "string"
-      }
+  #Dynamically adding the members based on the pre-defined list of users
+  dynamic "members" {
+    for_each = var.classifier_queue_members
+
+    content {
+      user_id  = members.value
+      ring_num = 1
     }
-  })
-  contract_output = jsonencode({
-    "type" = "object",
-    "required" = [
-      "QueueName"
-    ],
-    "properties" = {
-      "QueueName" = {
-        "type" = "string"
-      }
-    }
-  })
-  config_request {
-    request_url_template = var.classifier_url
-    request_type         = "POST"
-    request_template     = "$${input.rawRequest}"
-    headers = {
-      x-amazon-apigateway-api-key-source = "HEADER"
-      X-API-Key                          = var.classifier_api_key
-    }
-  }
-  config_response {
-    translation_map          = {}
-    translation_map_defaults = {}
-    success_template         = "$${rawResult}"
   }
 }
