@@ -28,14 +28,10 @@ module "classifier_data_actions" {
 
 
 ## Inputs
-  source             = "git::https://github.com/GenesysCloudDevOps/email-classifier-endpoint-demo.git?ref=v0.0.2"
-   integration_name   = "ComprehendDataActionV2"
-   data_action_name   = "LookupQueueNameV2"
-   classifier_url     = "https://localhost/abc"
-   classifier_api_key = "abc1234"
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="integration_name"></a> [integration_name](#integration\_name)  |  Name of the Genesys Cloud Integration to be created| `string` | `` | yes |
-| <a name="data_action_name"></a> [data_action_name](#data\_action\_name) |  Name of the Genesys Cloud Data Action to be created | `string` | `` | yes |
+
+| Name | Description | Type | Required |
+|------|-------------|------|:--------:|
+| <a name="integration_name"></a> [integration_name](#integration\_name)  |  Name of the Genesys Cloud Integration to be created| `string` | yes |
+| <a name="data_action_name"></a> [data_action_name](#data\_action\_name) |  Name of the Genesys Cloud Data Action to be created | `string` | yes |
 | <a name="classifier_url"></a>   [context](#classifier\_url) | REST API endpoint | `string` | yes |
 | <a name="classifier_api_key"></a>   [context](#classifier\_api\_key) | API Key that will be passed to the endpoint for authentication | `string` | yes |
