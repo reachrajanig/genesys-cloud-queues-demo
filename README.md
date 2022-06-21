@@ -32,8 +32,8 @@ module "classifier_queues" {
 | <a name="classifier_queue_names"></a> [classifier_queue_names](#classifier\_queue\_names)  |  List of queue names to create| `list(string)` | yes |
 | <a name="classifier_queue_members"></a> [classifier_queue_members](#classifier\_queue\_members) |  List of member ids to assign to the queue | `list(string)` | yes |
 
-## Ouytputs
+## Outputs
 
 | Name | Description | Type |
 |------|-------------|------|
-| <a name="queue_ids"></a> [queue_ids](#queue\_ids)  |  A map of queue ids where the queue name is the string| `map[string` | 
+| <a name="queue_ids"></a> [queue_ids](#queue\_ids)  |  A map of queue ids where the queue name is the string| `map[string-queue name]` | 
